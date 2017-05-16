@@ -9,6 +9,10 @@ import kr.ac.korea.mobide.util.DocAnswer;
 import kr.ac.korea.mobide.util.Util;
 
 
+
+
+
+
 public class ClassifierFactory {
 	private ArrayList<HashMap<Integer,HashMap<String, Double>>> vsm;
 	private HashMap<DocAnswer, double[]> docVector;

@@ -6,11 +6,14 @@ import java.util.HashSet;
 import java.util.Random;
 
 import kr.ac.korea.mobide.classifier.KNNClassifier;
-import kr.ac.korea.mobide.classifier.MCW2VClassifierMap;
 import kr.ac.korea.mobide.util.Constants;
 import kr.ac.korea.mobide.util.DocAnswer;
 import kr.ac.korea.mobide.util.ScoreData;
 import kr.ac.korea.mobide.util.Util;
+
+
+
+
 
 public class Experiment {
 	KNNClassifier classifier;

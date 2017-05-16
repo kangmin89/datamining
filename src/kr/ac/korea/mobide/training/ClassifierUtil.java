@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 import kr.ac.korea.mobide.tokenizer.Tokenizer;
 import kr.ac.korea.mobide.util.DocAnswer;
+import kr.ac.korea.mobide.word2vec_km.Word2Vec;
 import kr.ac.korea.mobide.word2vec_km.Word2VecSerializer;
 import kr.ac.korea.mobide.word2vec_km.Word2VecUtil_km;
 
@@ -69,17 +70,22 @@ public class ClassifierUtil {
 		}
 		return vsm;
 	}
-	
-	protected static HashMap<DocAnswer, double[]> makeDocVector(ArrayList<HashMap<Integer,HashMap<String, Double>>> vsm) {
+	protected static HashMap<DocAnswer, double[]>makeDocVector(ArrayList<HashMap<Integer,HashMap<String, Double>>> vsm) {
 		HashMap<DocAnswer, double[]> docVector = new HashMap<DocAnswer, double[]>();
+		Word2Vec vec = Word2VecSerializer.ReadWord2Vec();
+		int num =0;
 		for(int i =0; i<vsm.size();i++) 
 		{
 			for(int document:vsm.get(i).keySet())
 			{
-				DocAnswer ds= new DocAnswer(document, i);
-				docVector.put(ds, Word2VecUtil_km.documentVector(Word2VecSerializer.ReadWord2Vec(), vsm.get(i).get(document)));
+				DocAnswer ds = new DocAnswer(document, i);
+				docVector.put(ds, Word2VecUtil_km.documentVector(vec, vsm.get(i).get(document)));
+				num++;
+				if(num%100==0)
+					System.out.println(num);
 			}
 		}	
 		return docVector;
 	}
+	
 }
