@@ -35,7 +35,7 @@ public class KNNClassifier extends Classifier {
 	protected HashMap<DocAnswer, Double> getMapDIDScore(DocAnswer id, int knn, HashSet<DocAnswer> testSet) {
 		HashMap<DocAnswer, Double> mapDIDScore = new HashMap<DocAnswer, Double>();
 		for (DocAnswer docAns : this.docVector.keySet()) {
-			if(testSet.contains(id))
+			if(testSet.contains(docAns))
 				continue;
 			mapDIDScore.put(docAns, Word2VecUtil_km.vectorSim(this.docVector.get(docAns), this.docVector.get(id)));
 		}
