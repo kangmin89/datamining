@@ -36,7 +36,7 @@ public class TrainModel {
 		// TODO Auto-generated method stub
 		TrainModel tm = new TrainModel();
 //		tm.ModelTraining();
-		tm.ModelLoad(false);
+		tm.ModelLoad(true);
 //		Word2VecUtil_km.lowerCase();
 //		Word2VecUtil_km.ODPCorpus();
 	}

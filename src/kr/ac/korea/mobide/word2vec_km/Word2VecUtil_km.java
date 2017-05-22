@@ -71,7 +71,9 @@ public class Word2VecUtil_km {
 	public static double vectorSim(double[] v1, double[] v2){
 		double sim = 0.0;
 		for(int i=0;i<v1.length;i++)
+		{
 			sim +=v1[i]*v2[i];
+		}
 		return sim;
 	}
 	public static ArrayList<String> VectorNearest(Word2Vec vec, double[] v1, int num){

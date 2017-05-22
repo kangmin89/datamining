@@ -12,9 +12,6 @@ import kr.ac.korea.mobide.util.ScoreData;
 import kr.ac.korea.mobide.util.Util;
 
 
-
-
-
 public class Experiment {
 	KNNClassifier classifier;
 	private HashMap<DocAnswer, double[]> docVector;
@@ -22,7 +19,7 @@ public class Experiment {
 	//CentroidClassifier classifier2;
 	@SuppressWarnings("unchecked")
 	public Experiment(String filePath){
-		classifier = new KNNClassifier("");
+		classifier = new KNNClassifier();
 		this.docVector = (HashMap<DocAnswer, double[]>) Util.deserialize(filePath, Constants.FILE_MAP_DOCUMENT_VECTOR);
 		this.tenFoldDoc = new HashMap<Integer, HashSet<DocAnswer>>();
 	}
@@ -54,15 +51,16 @@ public class Experiment {
 			double accuracy = 0.0;
 			for(DocAnswer da: this.tenFoldDoc.get(index))
 			{
-				ArrayList<ScoreData> listScore = classifier.topK(da, knn, this.tenFoldDoc.get(index));
-				if(listScore.get(0).getID()==listScore.get(0+knn).getID())
+				ArrayList<ScoreData> listScore = classifier.topK(da, knn, this.docVector, this.tenFoldDoc.get(index));
+				int distanceIndex = listScore.size()%2;
+				if(listScore.get(0).getID()==listScore.get(0+distanceIndex).getID())
 				{
 					if(listScore.get(0).getID()==da.getAnswer())
 						accuracy +=1.0;
 				}
 				else
 				{
-					if(listScore.get(0+knn).getID()==da.getAnswer())
+					if(listScore.get(0+distanceIndex).getID()==da.getAnswer())
 						accuracy+=1.0;
 				}
 			}

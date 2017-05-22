@@ -34,8 +34,8 @@ public abstract class Classifier {
 			return listTopK;
 		}
 	}
-	public ArrayList<ScoreData> topK(DocAnswer id, int knn, HashSet<DocAnswer> testSet) {
-		HashMap<DocAnswer, Double> mapDIDScore = this.getMapDIDScore(id, knn, testSet);
+	public ArrayList<ScoreData> topK(DocAnswer id, int knn, HashMap<DocAnswer, double[]>docVector, HashSet<DocAnswer> testSet) {
+		HashMap<DocAnswer, Double> mapDIDScore = this.getMapDIDScore(id, knn, docVector, testSet);
 		// document ranking
 		ArrayList<ScoreData> listScore = new ArrayList<ScoreData>();
 		for (DocAnswer docAns : mapDIDScore.keySet()) {
@@ -88,6 +88,6 @@ public abstract class Classifier {
 	
 	protected abstract HashMap<Integer, Double> getMapCIDScore(String query);
 	protected abstract HashMap<Integer, Double> getMapCIDScore(int id);
-	protected abstract HashMap<DocAnswer, Double> getMapDIDScore(DocAnswer id, int knn, HashSet<DocAnswer>testSet);
+	protected abstract HashMap<DocAnswer, Double> getMapDIDScore(DocAnswer id, int knn, HashMap<DocAnswer, double[]>docVector, HashSet<DocAnswer>testSet);
 }
 

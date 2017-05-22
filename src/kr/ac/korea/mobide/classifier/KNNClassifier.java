@@ -16,9 +16,9 @@ public class KNNClassifier extends Classifier {
 	private HashMap<DocAnswer, double[]> docVector;
 	
 	@SuppressWarnings("unchecked")
-	public KNNClassifier(String filePath) {
-		this.docVector = (HashMap<DocAnswer, double[]>) Util.deserialize(filePath, Constants.FILE_MAP_DOCUMENT_VECTOR);
-		}
+	public KNNClassifier() {
+		
+	}
 	@Override
 	protected HashMap<Integer, Double> getMapCIDScore(String query) {
 		HashMap<Integer, Double> mapCIDScore = new HashMap<Integer, Double>();
@@ -32,12 +32,17 @@ public class KNNClassifier extends Classifier {
 	}
 	
 	@Override
-	protected HashMap<DocAnswer, Double> getMapDIDScore(DocAnswer id, int knn, HashSet<DocAnswer> testSet) {
+	protected HashMap<DocAnswer, Double> getMapDIDScore(DocAnswer id, int knn,HashMap<DocAnswer, double[]>docVector, HashSet<DocAnswer> testSet) {
 		HashMap<DocAnswer, Double> mapDIDScore = new HashMap<DocAnswer, Double>();
-		for (DocAnswer docAns : this.docVector.keySet()) {
+		for (DocAnswer docAns : docVector.keySet()) {
 			if(testSet.contains(docAns))
 				continue;
-			mapDIDScore.put(docAns, Word2VecUtil_km.vectorSim(this.docVector.get(docAns), this.docVector.get(id)));
+			/*System.out.println(id.getID());
+			System.out.println(id.getAnswer());
+			System.out.println(docAns.getID());
+			System.out.println(docVector.get(id));
+			System.out.println(docVector.get(docAns)[0]);*/
+			mapDIDScore.put(docAns, Word2VecUtil_km.vectorSim(docVector.get(docAns), docVector.get(id)));
 		}
 		
 		return mapDIDScore;
